@@ -13,7 +13,7 @@ export class AuthService {
     private readonly MIMNIMUM_VALID_TIME: number = 30;
 
     public authenticated$: Subject<boolean> = new Subject<boolean>;
-    public authenticated: boolean = false;
+    public authenticated: boolean = true;
 
     public profile: KeycloakProfile | undefined;
     public profile$: Subject<KeycloakProfile> = new Subject<KeycloakProfile>;
@@ -24,13 +24,13 @@ export class AuthService {
             realm: environment.keycloakRealm,
             clientId: environment.keycloakClientId
         });
-        this.init();
+                this.init();
     }
 
     private async init(): Promise<void> {
-        this.authenticated = await this.checkKeycloakAuthenticationAsync();
-        if (this.authenticated) await this.loadUserProfileAsync();
-        this.automaticallyRefreshToken();
+        // this.authenticated = await this.checkKeycloakAuthenticationAsync();
+        // if (this.authenticated) await this.loadUserProfileAsync();
+        // this.automaticallyRefreshToken();
         this.authenticated$.next(this.authenticated);
     }
 
