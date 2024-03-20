@@ -1,0 +1,22 @@
+:host {
+    display: contents;
+}
+
+.projects-overview-page {
+    max-width: var(--max-content-width);
+    margin: auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+
+.filter-menu {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}

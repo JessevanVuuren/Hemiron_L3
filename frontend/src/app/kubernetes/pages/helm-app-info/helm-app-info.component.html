@@ -1,0 +1,65 @@
+<div class='mx-auto w-9 pt-4'>
+    <div *ngIf="currentHelmApp">
+        <app-breadcrumbs></app-breadcrumbs>
+        <div class='flex flex-row pt-4 pb-4 align-items-center gap-4'>
+            <p class='text-3xl font-semibold m-0'>{{currentHelmApp.name}}</p>
+            <p class='text-sm m-0 text-gray-500'>{{currentHelmApp.created}}</p>
+        </div>
+
+        <p-tabView styleClass="bg-blue-200">
+            <p-tabPanel header="App Overzicht" class='bg-bluegray-100'>
+                <div class='flex justify-content-between'>
+
+                    <div class='p-4 w-full'>
+                        <div [ngClass]="statusColor" class='font-semibold text-xl flex w-max mb-4'>
+                            <i class='fas fa-circle p-1'></i>
+                            {{currentHelmApp.status}}
+                        </div>
+
+                        <div class='flex border-round bg-blue-200 p-1 my-3 w-max text-md'>chart naam:
+                            <p class='px-1 m-0 font-semibold'>{{currentHelmApp.chartName}}</p>
+                        </div>
+                        <div class='flex border-round bg-blue-200 p-1 my-3 w-max text-md'>chart version:
+                            <p class='px-1 m-0 font-semibold'> {{currentHelmApp.chartVersion}}</p>
+                        </div>
+                        <div class='flex border-round bg-blue-200 p-1 my-3 w-max text-md'>repository url:
+                            <p class='px-1 m-0 font-semibold'> {{currentHelmApp.repositoryUrl}}</p>
+                        </div>
+
+                        <div class="flex flex-column gap-2">
+                            <p-toast position="bottom-center" key="verify"></p-toast>
+
+                            <p-button (onClick)="verifyChart()" size="small" styleClass="verify-button"
+                                label="Verify Chart" icon="fas fa-file" type="button"></p-button>
+
+                            <p-button (onClick)="editAppDialog($event)" [disabled]="chartIsInvalid" size="small"
+                                styleClass="edit-button" severity="info" label="App aanpassen"
+                                icon="fas fa-pencil"></p-button>
+                        </div>
+
+                        <div class='mt-8' >
+                        <p-button (onClick)="deleteAppDialog($event)" styleClass="delete-button" size="small"
+                            severity="danger" label="App verwijderen" icon="fas fa-trash"></p-button>
+                        </div>
+
+                        <div class="card flex justify-content-center gap-2">
+                            <p-toast key="edit"></p-toast>
+                            <p-confirmDialog></p-confirmDialog>
+                        </div>
+
+                    </div>
+
+                    <div class='pt-4'>
+                        <app-code-editor [code]="this.getHelmAppService().getYamlContent()"></app-code-editor>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+            <p-tabPanel header="Logs">
+                <div class="mt-2"><app-helm-app-logs></app-helm-app-logs></div>
+            </p-tabPanel>
+        </p-tabView>
+
+
+    </div>
+</div>

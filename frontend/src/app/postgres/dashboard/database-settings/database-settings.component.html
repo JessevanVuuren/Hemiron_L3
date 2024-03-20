@@ -1,0 +1,20 @@
+<div class="mx-auto max-w-7xl lg:px-8">
+  <div class="page-container">
+    <div *ngIf="db" class="title">
+      <div [routerLink]="'/dashboard/postgres'" class="back-button">
+        <span class="material-symbols-rounded">arrow_back_ios</span>
+      </div>
+      <div class="vps-title">
+        <h2 class="capitalize">Database settings</h2>
+        <h3 class="bg-indigo-100 py-1 px-2 rounded-md">{{db.databaseName}}</h3>
+      </div>
+
+      <p>Beheer hier je de instellingen van je database</p>
+    </div>
+    <div class="tabs w-fit">
+      <div [routerLinkActive]="'tab--active'" [routerLink]="'general'" class="tab">General settings</div>
+      <div [routerLinkActive]="'tab--active'" [routerLink]="'system'" class="tab">System Settings</div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

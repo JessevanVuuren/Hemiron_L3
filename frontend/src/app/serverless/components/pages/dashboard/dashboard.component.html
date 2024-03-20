@@ -1,0 +1,42 @@
+<app-dashboard-layout>
+  <app-action-bar>
+    <app-banner banner>
+      <app-icon app-icon [font-size]="'32px'">data_object</app-icon>
+      <span titel>Serverless</span>
+    </app-banner>
+    <app-actions class="select-none" actions>
+      <app-href [route]="'./create'">
+        <app-icon  icon [font-size]="'24px'">add_box</app-icon>
+        &nbsp;Create Function
+      </app-href>
+      <app-serverless-button (click)="handleRefresh()" class="select-none">
+        <app-icon icon  [font-size]="'24px'">refresh</app-icon>
+        &nbsp;Refresh
+      </app-serverless-button>
+    </app-actions>
+  </app-action-bar>
+
+  <app-toast *ngIf="showErrorToast" [message]="toastMessage" [show]="showErrorToast"></app-toast>
+
+  <div id="function-containers" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <ng-template ngFor let-function [ngForOf]="functions">
+        <div [routerLink]="['./', function.id]" class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-3 cursor-pointer	">
+          <div class="p-8">
+            <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{function.name}}</div>
+            <div class="flex items-center mb-2">
+              <span class="font-semibold pr-4">ProjectId:</span>
+              <span class="ml-auto">{{function.projectId}}</span>
+            </div>
+            <div class="flex items-center mb-2">
+              <span class="font-semibold pr-4">Taal:</span>
+              <span>{{function.language}}</span>
+            </div>
+            <div class="flex items-center mb-2">
+              <span class="font-semibold pr-4">URL:</span>
+              <a class="text-blue-600 hover:text-blue-800 visited:text-purple-600" href="{{getTriggerFunctionUrl(function.id)}}" target="_blank">{{getTriggerFunctionUrl(function.id)}}</a>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+</app-dashboard-layout>

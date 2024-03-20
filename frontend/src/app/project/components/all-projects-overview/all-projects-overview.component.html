@@ -1,0 +1,67 @@
+<section class="center-content initial-loading" *ngIf="isInitiallyLoading">
+    <p-progressSpinner />
+    <h3>Projecten aan het laden...</h3>
+</section>
+
+<section class="center-content no-projects" *ngIf="!isInitiallyLoading && !projects.length && !hasApiTimeout && !searchQuery">
+    <img src="assets/images/errors/empty-clipboard-illustration.svg" style="width: 275px;" />
+    <h2>Geen projecten</h2>
+    <p>
+        Je hebt momenteel geen toegang tot een project<br>
+        Neem contact op met een project beheerder.
+    </p>
+    <p-button label="pagina herladen" (click)="reloadPage()" />
+</section>
+
+
+<section class="center-content api-timeout" *ngIf="!isInitiallyLoading && hasApiTimeout">
+    <img src="assets/images/errors/no-signal-illustration.svg" style="width: 275px;" />
+    <h2>Probleem met verbinden</h2>
+    <p>
+        We konden geen verbinding maken met de server.<br>
+        Probeer het graag later nog een keer.
+    </p>
+    <p-button label="pagina herladen" (click)="reloadPage()" />
+</section>
+
+<section class="center-content no-results" *ngIf="!isInitiallyLoading && !projects.length && !hasApiTimeout && searchQuery">
+    <img src="assets/images/errors/search-results-illustration.svg" style="width: 275px;" />
+    <h2>Geen projecten gevonden</h2>
+    <p>
+        Er zijn geen projecten gevonden met deze zoekterm.<br>
+        Controleer je zoekterm of neem contact op met jouw beheerder.
+    </p>
+</section>
+
+<section class="project-table" *ngIf="!isInitiallyLoading && projects.length && !hasApiTimeout">
+    <p-table
+        [value]="projects"
+        [(rows)]="rows"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        [lazy]="true"
+    >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 20%; min-width: 100px">Project Naam</th>
+                <th style="width: 10%; min-width: 100px">Aangemaakt</th>
+                <th style="width: 100%;">Beschrijving</th>
+                <th style="width:10%" style="max-width: 25px;"></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-project>
+            <tr class="project-table-row" [ngClass]="{'selected-project' : project.id == selectedProject?.id}">
+                <td [routerLink]="['/project/' , project.path]" class="project-table-cell">{{ project.name }}</td>
+                <td [routerLink]="['/project/' , project.path]" class="project-table-cell">{{ project.dateCreated | date }}</td>
+                <td [routerLink]="['/project/' , project.path]" class="project-table-cell">{{ project.description }}</td>
+                <td>
+                    <div *ngIf="isCustomer">
+                      <p-button [text]="true" icon="fas fa-ellipsis" size="small" (click)="toggleProjectMenu(menu, $event, project)"/>
+                      <p-menu #menu [model]="projectMenu" [popup]="true" appendTo="body" ></p-menu> 
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-paginator [totalRecords]="totalElements" currentPageReportTemplate="Toont {first} t/m {last} van de {totalRecords} projecten" [showCurrentPageReport]="true" [rows]="rows" [rowsPerPageOptions]="[5,10,20]" (onPageChange)="paginate($event)" #paginator></p-paginator>
+</section>
+<p-confirmDialog></p-confirmDialog>

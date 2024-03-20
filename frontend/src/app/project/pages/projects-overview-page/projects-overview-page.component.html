@@ -1,0 +1,21 @@
+<section class="max-size-content">
+    <section class="projects-overview-page">
+        <h2>Projecten</h2>
+
+        <section class="filter-menu">
+            <p-tabMenu [model]="tabItems" [(activeItem)]="activeTab" />
+            <section class="actions">
+                <p-button *ngIf="isCustomer" (click)="projectsOverview.createProject()" label="Nieuw Project" icon="fa-solid fa-plus" iconPos="right" [hidden]="activeTab !== tabItems[0]" />
+                
+                <span class="p-input-icon-right">
+                    <input pInputText class="p-inputtext-sm" style="height: 42px;" placeholder="Zoeken" [(ngModel)]="searchQuery" />
+                    <i class="fas fa-magnifying-glass"></i>
+                </span>
+            </section>
+        </section>
+
+        <app-all-projects-overview [isCustomer]="isCustomer" [searchQuery]="searchQuery" #projectsOverview [hidden]="activeTab !== tabItems[0]"/>
+        <app-recent-projects-overview [searchQuery]="searchQuery" #projectsOverview [hidden]="activeTab !== tabItems[1]"/>
+
+    </section>
+</section>

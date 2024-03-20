@@ -1,0 +1,25 @@
+::ng-deep{
+    .p-button.add-app-button{
+        font-weight: lighter;
+        width: 13vw;
+    }
+    .p-button.verify-button{
+        background: var(--bluegray-500);
+        font-weight: lighter;
+        width: 13vw;
+    }
+
+    .p-button.verify-button:hover{
+        background: var(--bluegray-300);
+    }
+
+    .p-button.edit-button{
+        font-weight: lighter;
+        width: 13vw;
+    }
+
+    .p-button.delete-button{
+        font-weight: lighter;
+        width: 13vw;
+    }
+}

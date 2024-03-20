@@ -1,0 +1,42 @@
+:host {
+  display: contents;
+}
+
+.error-layout-page {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+
+  .error-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    box-sizing: border-box;
+    padding: 15px 25px;
+    background: url(../../../../assets/images/errors/errors-background-wave.svg);
+    background-position: bottom right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.05;
+  }
+
+  .error-content {
+    margin: 25px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+  }
+}
+
+::ng-deep {
+  .error-layout-page {
+    p {
+      opacity: 0.8;
+    }
+  }
+}

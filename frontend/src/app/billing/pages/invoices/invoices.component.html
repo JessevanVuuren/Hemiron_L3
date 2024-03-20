@@ -1,0 +1,30 @@
+<div class="mt-16">
+    <div>
+        <h1 class="font-bold text-3xl">Facturen</h1>
+        <h2>Lijst van uw facturen</h2>
+        <div class="my-10">
+            <app-input (inputEmitter)="search($event)"></app-input>
+        </div>
+        <p-table [value]="invoiceService.filtered ? invoiceService.filteredInvoices : invoiceService.invoices">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th id="col" *ngFor="let col of cols">{{col.header}}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData>
+                <tr>
+                    <td *ngFor="let col of cols">
+                        <ng-container *ngIf="col.field === 'action'; else otherCells">
+                            <button *ngFor="let action of actions" (click)="performAction({action: action, id: rowData.id})">
+                                {{action}}
+                            </button>
+                        </ng-container>
+                        <ng-template #otherCells>
+                            {{rowData[col.field]}}
+                        </ng-template>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

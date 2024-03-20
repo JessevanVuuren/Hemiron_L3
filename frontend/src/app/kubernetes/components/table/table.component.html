@@ -1,0 +1,47 @@
+<!-- KUBERNETES CLUSTERS DASHBOARD TABLE  -->
+<div *ngIf="currentUrl === 'kubernetes'" class="card">
+    <p-table [value]="clusters" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">Naam</th>
+                <th style="width:15%">Versie</th>
+                <th style="width:20%">Aangemaakt</th>
+                <th style="width:15%">Kubeconfig</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-clusters>
+            <tr>
+                <td class='hover:underline cursor-pointer' [routerLink]="['./', clusters.id]" (click)="setCurrentClusterId(clusters, $event)">{{ clusters.name}}</td>
+                <td [routerLink]="['./', clusters.id]" (click)="setCurrentClusterId(clusters, $event)">{{ clusters.version }}</td>
+                <td [routerLink]="['./', clusters.id]" (click)="setCurrentClusterId(clusters, $event)">{{ formatDate(clusters.created) }}</td>
+                <td class='text-primary cursor-pointer hover:underline' (click)="downloadKubeconfig(clusters.kubeConfig)">Download <span class='text-primary pl-2 fas fa-download'></span></td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+
+<!-- KUBERNETES HELM APP DASHBOARD TABLE  -->
+<div *ngIf="currentUrl !== 'kubernetes'" class="card">
+    <p-table [value]="helmApps" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:25%">App Naam</th>
+                <th style="width:25%">Beschrijving</th>
+                <th style="width:20%">Naam Helm Chart</th>
+                <th style="width:15%">Versie Helm Chart</th>
+                <th style="width:10%">Repository URL</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-helmApps>
+            <tr>
+                <td class='hover:underline cursor-pointer' [routerLink]="['./', helmApps.id]" (click)="setCurrentAppId(helmApps, $event)">{{ helmApps.name }} </td>
+                <td [routerLink]="['./', helmApps.id]" (click)="setCurrentAppId(helmApps, $event)" class='row-overflow' >{{helmApps.description}} </td>
+                <td [routerLink]="['./', helmApps.id]" (click)="setCurrentAppId(helmApps, $event)">{{ helmApps.chartName }} </td>
+                <td [routerLink]="['./', helmApps.id]" (click)="setCurrentAppId(helmApps, $event)">{{ helmApps.chartVersion }} </td>
+                <td><a class='no-underline' target='_blank' href="{{helmApps.repositoryUrl}}"> Repository </a><span class='text-primary pl-2 fas fa-arrow-up-right-from-square'></span></td>
+
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

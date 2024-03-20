@@ -1,0 +1,45 @@
+:host {
+    --white: #e3e3e3;
+    --removeRedBackground: #dc3545;
+    --removeRedBorder: #c82333;
+    --nonActiveVps: #4c0000;
+    --nonActiveHoverVps: #640000;
+
+    --headerColour: #554f6e;
+
+    --hoverColour: #26232f;
+    --itemColour: #403c4f;
+
+    --boxShadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.container {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+.vps-request {
+    padding: 10px 20px;
+    background-color: var(--headerColour);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.vps-request:hover {
+    background-color: var(--itemColour) 50%;
+}
+
+.vps-item:not(.active) {
+    background-color: var(--nonActiveVps);
+}.vps-item:not:hover(.active) {
+     background-color: var(--nonActiveHoverVps);
+ }

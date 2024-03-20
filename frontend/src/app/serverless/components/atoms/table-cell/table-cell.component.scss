@@ -1,0 +1,13 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:host {
+  padding: 4px 16px;
+  width: auto;
+  display: table-cell;
+  vertical-align: top;
+  text-align: left;
+  white-space: normal;
+}

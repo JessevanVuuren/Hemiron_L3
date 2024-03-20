@@ -1,0 +1,32 @@
+<div class="flex flex-col w-full">
+    <hr class="py-3 border-blue-500">
+    <div class="overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="inline-block min-w-full align-middle ">
+            <table class="min-w-full divide-y table-auto max-h-full">
+                <thead>
+                    <tr class="sticky top-0 bg-white">
+                        <th scope="col" class="p-4" *ngIf="checkboxes">
+
+                        </th>
+                        <th scope="col"
+                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-black-700 uppercase dark:text-black-400 text-left font-bold"
+                            *ngFor="let header of headers">
+                            {{header}}
+                        </th>
+                        <th scope="col" class="p-4">
+                            <span class="sr-only">Edit</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y">
+                    <tr app-table-row class="hover:bg-gray-100" *ngFor="let rowEntry of rowEntries"
+                        [rowEntry]="rowEntry" [variableNames]="this.variableNames" [actions]="this.actions"
+                        [checkboxes]="this.checkboxes" (click)="emitRow(rowEntry)"
+                        (clickedTableCell)="emitTableCell($event)" (clickedAction)="emitAction($event)"
+                        (checkedRow)="emitCheckedRows(rowEntry)">
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

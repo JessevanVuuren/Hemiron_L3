@@ -1,0 +1,29 @@
+<app-common-header [homeUrl]="['/project/']">
+    <p-button [text]="true"
+              icon="fas fa-bars"
+              class="menu-button"
+              pTooltip="Menu"
+              start (click)="toggleSideBar()"
+    />
+
+    <p-dropdown [options]="projects"
+                [(ngModel)]="activeProject"
+                [filter]="true"
+                [style]="{'border': 'none'}"
+                [showClear]="false"
+                optionLabel="name"
+                filterBy="name"
+                (onClick)="switchToProject()"
+                end>
+    </p-dropdown>
+
+
+    <a [routerLink]="['./billing']" style="color: var(--surface-text);" user-menu>
+        <p-button [text]="true" label="Billing" icon="fas fa-wallet" [style]="{'width': '100%'}" size="small"/>
+    </a>
+
+    <a [routerLink]="['./billing/products']" style="color: var(--surface-text);" user-menu>
+        <p-button [text]="true" label="Products" icon="fas fa-box" [style]="{'width': '100%'}" size="small"/>
+    </a>
+
+</app-common-header>

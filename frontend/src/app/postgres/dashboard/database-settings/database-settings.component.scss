@@ -1,0 +1,97 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.page-container {
+  width: 85%;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  .vps-title {
+    display: flex;
+    column-gap: 7px;
+  }
+
+  h2 {
+    left: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  h3 {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  p {
+    color: #656565;
+    margin-bottom: 10px;
+  }
+}
+
+.back-button {
+  position: absolute;
+  transform: translate(-180%, -35%);
+  transition: 0.2s;
+
+  span {
+    font-size: 20px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: #4F46E5;
+    transition: 0.2s;
+    transform: translate(-200%, -35%);
+  }
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  column-gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: #e8e8e8 2px solid;
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-wrap: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: #F5F5F5;
+    transition: 0.2s;
+
+    &:hover {
+      cursor: pointer;
+      background-color: #E0E0E0;
+      transition: 0.2s;
+    }
+
+    &--active {
+      @extend .tab;
+      background-color: #4F46E5;
+      color: white;
+
+      &:hover {
+        background-color: #5b52e7;
+        transition: 0.2s;
+      }
+    }
+
+  }
+}

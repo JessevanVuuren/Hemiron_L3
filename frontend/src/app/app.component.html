@@ -1,0 +1,7 @@
+<section id="app">
+    <app-loading-page *ngIf="loading" />
+    <router-outlet></router-outlet>
+</section>
+
+<!-- Parent element for toasts from the toast service -->
+<p-toast position="bottom-right"></p-toast>

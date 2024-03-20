@@ -1,0 +1,13 @@
+<section class="project-dashboard-page">
+    <h2>{{greeting}} {{userFirstName}}</h2>
+    <section class="filter-menu">
+        <p-tabMenu [model]="tabItems" [activeItem]="activeTab" />
+        <section class="actions">
+            
+            <span class="p-input-icon-right">
+                <input pInputText class="p-inputtext-sm" placeholder="Zoeken" />
+                <i class="fas fa-magnifying-glass"></i>
+            </span>
+        </section>
+    </section>
+</section>

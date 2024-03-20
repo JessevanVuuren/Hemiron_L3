@@ -1,0 +1,13 @@
+<div class='mx-auto w-9 pt-4'>
+    <div>
+        <app-breadcrumbs></app-breadcrumbs>
+        <p class='pt-4 pb-8 text-3xl font-semibold m-0'>K8s Clusters</p>
+        <div class='flex gap-2 pb-4'>
+            <div class='w-full'>
+                <app-search-bar [placeholder]="'Zoek Cluster...'"></app-search-bar>
+            </div>
+            <p-button [routerLink]="['./add-cluster']" label="Cluster toevoegen" icon="fas fa-plus" iconPos="right" size="small"></p-button>
+        </div>
+        <app-table></app-table>
+    </div>
+</div>

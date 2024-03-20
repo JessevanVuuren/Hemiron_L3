@@ -1,0 +1,7 @@
+<div class="editor-background p-3">
+    <div class="custom-editor">
+        <ngx-monaco-editor class="custom-editor" [options]="editorOptions" ngDefaultControl 
+            (ngModelChange)="onChange($event)"
+            [(ngModel)]="code"></ngx-monaco-editor>
+    </div>
+</div>

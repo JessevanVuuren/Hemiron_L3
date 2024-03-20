@@ -1,0 +1,74 @@
+<app-function-form>
+  <app-action-bar action-bar>
+    <app-banner class="select-none" banner>
+      <app-icon app-icon [font-size]="'32px'">data_object</app-icon>
+      <span titel>Create Function</span>
+    </app-banner>
+    <app-actions class="select-none" actions>
+      <app-href [route]="'../'">
+        <app-icon icon [font-size]="'24px'">arrow_back</app-icon>
+        &nbsp;Go Back
+      </app-href>
+    </app-actions>
+  </app-action-bar>
+
+  <app-form form class="basis-2/6 max-w-[512px]">
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()" enctype="multipart/form-data">
+      <div>
+        <div class="mt1 mb-2">
+          <h1 class="font-semibold text-2xl">Basis</h1>
+        </div>
+        <app-form-field>
+          <label label for="name">Function name</label>
+          <div *ngIf="form.controls['name'].hasError('invalidFunctionName')">
+            Function name can only contain letters from a-z.
+          </div>
+          <input input class="border" name="name" type="text" placeholder="name..." formControlName="name">
+        </app-form-field>
+      </div>
+      <div>
+        <div class="mt-6 mb-2">
+          <h1 class="font-semibold text-2xl">Build</h1>
+        </div>
+        <div class="p-4 box-shadow-form mb-8">
+          <div class="mb-8">
+            <app-form-field>
+              <label label for="handler">Function file (.py)</label>
+              <div *ngIf="form.controls['handler'].hasError('invalidExt')">
+                Function file must be a .py file.
+              </div>
+              <input input type="file" name="handler" accept=".py" formControlName="handler"
+                (change)="onFileChange($event, 'handler')">
+            </app-form-field>
+          </div>
+          <app-form-field>
+            <label label for="requirements">requirements (.txt)</label>
+            <div *ngIf="form.controls['requirements'].hasError('invalidExt')">
+              Requirements file must be a .txt file.
+            </div>
+            <input input type="file" name="requirements" accept=".txt" formControlName="requirements"
+              (change)="onFileChange($event, 'requirements')">
+          </app-form-field>
+        </div>
+      </div>
+      <button class=" p-2 rounded-md bg-color-form text-white" type="submit">Create</button>
+      <div *ngIf="hasError" class="text-red-500">
+        <span>{{error.code}}<br>{{error.description}}</span>
+      </div>
+    </form>
+  </app-form>
+
+  <div class="ml-6 mt-10 basis-2/6" info>
+    <div class="m-px p-4 block box-shadow-form">
+      <h2 class="font-semibold text-2xl">Steps to create a function</h2>
+      <p>Functions require names, there are a few expections when naming functions: insert exception.
+        Functions are required to be written in Python 3.X. If your function has dependencies, add these dependencies to
+        your requirements.txt
+      </p>
+    </div>
+    <div class="m-px p-4 block box-shadow-form">
+      <h2 class="font-semibold text-2xl">Uploaded function</h2>
+      <app-code-editor [(fileContent)]="fileContent" (fileContentChange)="replaceFileContent($event)"></app-code-editor>
+    </div>
+  </div>
+</app-function-form>

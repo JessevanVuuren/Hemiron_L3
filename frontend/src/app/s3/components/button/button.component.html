@@ -1,0 +1,4 @@
+<button (click)="btnClick.emit()" [disabled]="disabled" [type]="type" class="flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 font-medium rounded-lg py-2 px-3 disabled:bg-gray-500 transition-all" type="button">
+  <span *ngIf="symbol" class="!text-lg material-symbols-rounded">{{symbol}}</span>
+  <span class="text-sm whitespace-nowrap px-1" [ngClass]="{ 'pb-0.5': symbol, 'py-1': !symbol }">{{title}}</span>
+</button>

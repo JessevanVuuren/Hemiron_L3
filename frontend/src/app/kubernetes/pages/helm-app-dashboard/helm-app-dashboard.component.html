@@ -1,0 +1,32 @@
+<div class='mx-auto w-9 pt-4'>
+    <div>
+        <app-breadcrumbs></app-breadcrumbs>
+        <div *ngIf="currentCluster" class='flex flex-row pt-4 pb-4 align-items-center gap-4'>
+            <p class='text-3xl font-semibold m-0'>{{ currentCluster.name }}</p>
+            <p class='text-sm m-0 text-gray-500'>{{ currentCluster.id }}</p>
+        </div>
+        <div class='flex flex-row justify-content-between mb-4 gap-2 hover:cursor-pointer'>
+            <div>
+                <!-- <p class='font-bold text-500 text-blue-500 border-bottom-2 border-blue-500 text-md'>Beheer Helm Apps</p> -->
+                <p-button class='font-bold text-500 text-blue-500 border-bottom-2 border-primary text-md'
+                    label="Beheer Helm Apps" [text]="true"></p-button>
+                <p-button routerLink="./add-helmapp" icon="fas fa-plus" iconPos="right"
+                    class='font-bold text-500 text-blue-500 border-primary text-md' label="Nieuwe Helm App"
+                    [text]="true">
+                </p-button>
+            </div>
+            <div>
+                <div class="card flex justify-content-center gap-2">
+                    <p-toast key="deleteCluster"></p-toast>
+                    <p-confirmDialog></p-confirmDialog>
+                    <p-button size="small" (onClick)="deleteClusterDialog($event)" severity="danger" label="Cluster verwijderen" icon="fas fa-trash"></p-button>
+                </div>
+            </div>
+        </div>
+
+        <div class='w-full pb-4'>
+            <app-search-bar [placeholder]="'Zoek Helm App...' "></app-search-bar>
+        </div>
+        <app-table></app-table>
+    </div>
+</div>

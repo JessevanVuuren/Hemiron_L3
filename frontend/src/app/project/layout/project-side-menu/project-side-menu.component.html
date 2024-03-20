@@ -1,0 +1,17 @@
+<section class="side-menu">
+    <section class="backdrop p-component-overlay" *ngIf="expanded" (click)="expanded = false; expandedChange.emit(expanded)"></section>
+    <section class="side-menu-content" [ngClass]="{'expanded' : expanded }">
+
+        <section class="side-menu-items" (click)="$event.stopPropagation()">
+            <a [routerLink]="[item.url]" (click)="expanded = false; expandedChange.emit(expanded)" *ngFor="let item of menuItems">
+                <p-button [text]="true" [icon]="item.icon" [label]="expanded ? item.label : ''" class="menu-button" [pTooltip]="expanded ? '' : item.label" />
+            </a>
+        </section>
+
+        <section *ngIf="userIsAdmin()" class="side-menu-items">
+            <a [routerLink]="['./admin']" (click)="expanded = false; expandedChange.emit(expanded)">
+                <p-button [text]="true" icon="fas fa-lock" [label]="expanded ? 'Project instellingen' : ''" class="menu-button" [pTooltip]="expanded ? '' : 'Project instellingen'" />
+            </a>
+        </section>
+    </section>
+</section>

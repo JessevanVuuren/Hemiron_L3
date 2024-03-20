@@ -1,0 +1,82 @@
+<app-metric-layout>
+
+  <app-action-bar>
+    <app-banner banner *ngIf="!hasError">
+      <app-icon app-icon [font-size]="'32px'">data_object</app-icon>
+      <span class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" *ngIf="_function" titel>{{_function.name}}</span>
+    </app-banner>
+    <app-actions actions>
+      <app-href [route]="'../'">
+        <app-icon icon [font-size]="'24px'">arrow_back</app-icon>
+        &nbsp;Go Back
+      </app-href>
+      <app-serverless-button (click)="handleRefresh()">
+        <app-icon icon [font-size]="'24px'">refresh</app-icon>
+        &nbsp;Refresh
+      </app-serverless-button>
+
+    </app-actions>
+
+    <app-toast *ngIf="showErrorToast" [message]="toastMessage" [show]="showErrorToast"></app-toast>
+  </app-action-bar>
+
+  <div role="alert" class="max-w-2xl mx-auto bg-white shadow-md overflow-hidden md:max-w-2xl m-3" *ngIf="hasError">
+    <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2 ">
+      Er is een error opgetreden.
+    </div>
+    <div *ngIf="error" class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+      <p>{{error}}</p>
+    </div>
+  </div>
+
+  <div *ngIf="!_function && !hasError" class="flex justify-center items-center m-14">
+    <div
+      class="inline-block h-16 w-16 animate-spin rounded-full border-8 border-t-8 border-gray-200 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
+    </div>
+  </div>
+
+  <div *ngIf="_function" class="max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-3">
+
+    <div class="p-8 flex">
+      <div class="w-1/2">
+        <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{{_function.name}}</div>
+        <div class="flex items-center mb-2">
+          <span class="font-semibold pr-4">Taal:</span>
+          <span>{{_function.language}}</span>
+        </div>
+        <div class="flex items-center mb-2">
+          <span class="font-semibold pr-4">URL:</span>
+          <a id="function-url" class="text-blue-600 hover:text-blue-800 visited:text-purple-600"
+             href="{{environment.serverlessURL}}{{_function.functionUrl}}"
+             target="_blank">{{environment.serverlessURL}}{{_function.functionUrl}}</a>
+        </div>
+      </div>
+      <div class="w-1/2 flex justify-end items-start">
+        <button id="function-refresh" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mr-2" (click)="handleRefresh()">
+          <app-icon icon [font-size]="'24px'">refresh</app-icon>
+          &nbsp;Refresh
+        </button>
+        <button class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500" (click)="handleDelete()">
+          <app-icon icon [font-size]="'24px'">delete</app-icon>
+          &nbsp;Delete
+        </button>
+      </div>
+    </div>
+    <hr class="border-gray-200"/>
+    <div class="p-8">
+      <h2 class="text-2xl font-bold mb-4">Deployments</h2>
+      <div *ngFor="let task of _function.tasks">
+        <div class="m-2 p-4 bg-gray-100 rounded-xl shadow-md mb-4" [ngClass]="{'bg-green-100': task.resolution.toString() == 'COMPLETED'}">
+          <p class="font-semibold">Timestamp: <span class="font-normal">{{ transformDate(task.createdAt) }}</span></p>
+          <p class="font-semibold">Type: <span class="font-normal">{{task.type}}</span></p>
+          <p class="font-semibold">Resolutie:
+            <span id="function-state" class="font-normal">
+              {{task.resolution}} <app-icon *ngIf="task.resolution.toString() == 'COMPLETED'" icon [font-size]="'24px'">check_circle</app-icon>
+            </span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</app-metric-layout>

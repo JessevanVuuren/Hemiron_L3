@@ -1,0 +1,44 @@
+<form [formGroup]="projectForm" (ngSubmit)="submitBtn.focus(); onSubmit()">
+  <div class = "error-message" *ngIf="projectForm.get('name')?.hasError('required') && projectForm.get('name')?.touched">
+    Naam is verplicht.
+  </div>
+  <div class = "error-message" *ngIf="projectForm.get('name')?.hasError('pattern') && projectForm.get('name')?.touched">
+    Alleen alfanumerieke tekens, spaties, onderstrepingstekens, streepjes en apostrofs zijn toegestaan.
+  </div>
+  <div class = "error-message" *ngIf="projectForm.get('name')?.hasError('minlength') && projectForm.get('name')?.touched">
+    Naam moet minimaal 3 karakters lang zijn.
+  </div>
+  <div class = "error-message" *ngIf="projectForm.get('name')?.hasError('maxlength') && projectForm.get('name')?.touched">
+    Naam mag maximaal 32 karakters lang zijn.
+  </div>
+    <div class="form-group">
+      <input
+        pInputText
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Project naam"
+        formControlName="name"
+        style="width: 100%"
+      />
+    </div>
+    <div class = "error-message" *ngIf="projectForm.get('description')?.hasError('maxlength') && projectForm.touched">
+      Beschrijving mag maximaal 255 karakters lang zijn.
+    </div>
+    <div class="form-group">
+      <textarea
+        pInputTextarea
+        id="description"
+        name="description"
+        placeholder="Beschrijving"
+        formControlName="description"
+        style="width: 100%"
+        rows="3"
+      ></textarea>
+    </div>
+    <div class="submitButton">
+      <button pButton type="submit" #submitBtn>Aanpassen</button>
+      <p>{{message}}</p>
+    </div>
+  </form>
+  

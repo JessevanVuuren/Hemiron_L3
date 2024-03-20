@@ -1,0 +1,11 @@
+<div>
+    <div class="flex justify-between mt-20 mb-5">
+        <h1 class="font-bold text-3xl ">Gebruik</h1>
+        <button [routerLink]="['invoices']" class="flex items-center gap-3 text-white bg-indigo-600 hover:bg-indigo-700 font-medium rounded-lg py-2 px-3 disabled:bg-gray-500 transition-all" type="button" >
+            <span class="text-sm whitespace-nowrap p-1">Facturen bekijken</span>
+        </button>
+    </div>
+
+    <app-chart [actions]="this.actionService.actions"></app-chart>
+    
+</div>

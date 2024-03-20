@@ -1,0 +1,23 @@
+
+<div class='mx-auto w-9 pt-4'>
+    <div>
+        <app-breadcrumbs></app-breadcrumbs>
+        <p class='pt-4 text-3xl font-semibold m-0'>Cluster Toevoegen</p>
+        <form class="mt-6" #addClusterForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="mb-6">
+                <app-input 
+                    [ngStyle]="{'width': '20%'}"
+                    [placeholder]="'Naam van uw nieuwe cluster'"
+                    [id]="'text'"
+                    [disabled]="false"
+                    [(ngModel)]="newClusterName"
+                    [ngModelOptions]="{standalone: true}"
+                    (valueChange)="updateValue($event)"
+                    ngDefaultControl
+                    >
+                </app-input>
+            </div>
+            <p-button label="Cluster Toevoegen" type="submit"></p-button>
+        </form>
+    </div>
+</div>

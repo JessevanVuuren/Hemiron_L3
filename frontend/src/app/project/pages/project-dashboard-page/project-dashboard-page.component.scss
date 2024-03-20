@@ -1,0 +1,27 @@
+.project-dashboard-page {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 50px 25px;
+    margin: auto;
+    max-width: var(--max-content-width);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.filter-menu {
+    display: flex;
+    justify-content: space-between;
+    align-self: center;
+}
+
+::ng-deep {
+    .project-dashboard-page {
+        .p-tabmenu .p-tabmenu-nav, .p-tabmenu .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link {
+            background-color: transparent;
+            border-bottom: transparent;
+        }
+    }
+}

@@ -1,0 +1,30 @@
+<div class="container">
+	<button
+		[routerLink]="['/project', getProjectPath(), 'vps']"
+		class="m-10 justify-end flex items-center gap-2 text-white bg-indigo-600 hover:bg-indigo-700 font-medium rounded-lg py-2 px-4 disabled:bg-gray-500 transition-all">
+		<h3 class="whitespace-nowrap overflow-hidden text-ellipsis">Bekijk mijn VPSen</h3>
+	</button>
+	<p-panel header="VPS Aanvraag formulier" *ngIf="formHasBeenSend === false; else formIsSend">
+		<form [formGroup]="vpsForm" (ngSubmit)="onSubmit($event)">
+			<textarea
+				required
+				class="input-container input-container__message"
+				type="text"
+				placeholder="Bericht"
+				pInputTextarea
+				aria-describedby="text-help"
+				formControlName="text">
+			</textarea>
+
+			<div style="display: flex; justify-content: right">
+				<p-overlayPanel #errorOverlay>
+					Er is iets mis gegaan met het versturen van uw aanvraag. Probeer het later nog eens.
+				</p-overlayPanel>
+				<p-button type="submit" [disabled]="!vpsForm.valid" label="Verstuur"></p-button>
+			</div>
+		</form>
+	</p-panel>
+	<ng-template #formIsSend>
+		<p-panel header="Uw aanvraag is verstuurd"></p-panel>
+	</ng-template>
+</div>

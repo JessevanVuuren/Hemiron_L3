@@ -1,0 +1,9 @@
+<div class="flex mt-auto flex-row mb-2">
+    <p-dropdown [options]="pods" [(ngModel)]="selectedPod" (ngModelChange)="loadLogs()" optionLabel="name" [showClear]="true" [emptyMessage]="'Geen pods gevonden'" placeholder="Selecteer een pod"
+        class="mb-2 mr-2"></p-dropdown>
+    <p-button [style]="{ height: '45px' }" label="Herladen" (onClick)="loadLogs()"><span class="fas fa-refresh pr-1"></span>
+    </p-button>
+</div>
+<p-scrollPanel [style]="{ width: '100%', height: '65vh', overflow: 'hidden', border: '1px solid #ccc', 'border-radius': '5px'}">
+    <p class="p-3" style="overflow-y: auto; overflow-x: hidden;">{{ this.podLogs }}</p>
+</p-scrollPanel>

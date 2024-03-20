@@ -1,0 +1,6 @@
+services:
+  keycloak:
+    container_name: "keycloak"
+    image: registry.inf-hsleiden.nl/hemiron/auth/auth-keycloak-development
+    ports:
+      - "8001:8080"

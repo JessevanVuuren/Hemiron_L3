@@ -1,0 +1,8 @@
+<div class="border-r">
+  <div class="flex px-2 mr-8">
+    <ng-content select="[app-icon]"></ng-content>
+    <span [class.ml-4]="hasIcon()" class="mx-auto flex font-medium text-xl">
+      <ng-content select="[titel]"></ng-content>
+    </span>
+  </div>
+</div>

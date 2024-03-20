@@ -1,0 +1,35 @@
+<div style="display: flex">
+    <div style="flex: 1">
+        <p-tabView (onChange)="tabChanged($event)">
+            <p-tabPanel header="Last 24 Hours">
+                <div style="flex: 0; padding-left: 10px; display: flex; float: right;">
+                    <p-dropdown [options]="services" [(ngModel)]="service" (onChange)="updateService($event)"></p-dropdown>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="This Month">
+                <div style="flex: 0; padding-left: 10px; display: flex; float: right;">
+                    <p-dropdown [options]="services" [(ngModel)]="service" (onChange)="updateService($event)"></p-dropdown>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Last Year">
+                <div style="flex: 0; padding-left: 10px; display: flex; float: right;">
+                    <p-dropdown [options]="services" [(ngModel)]="service" (onChange)="updateService($event)"></p-dropdown>
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="All Time">
+                <div style="flex: 0; padding-left: 10px; display: flex; float: right;">
+                    <p-dropdown [options]="services" [(ngModel)]="service" (onChange)="updateService($event)"></p-dropdown>
+                </div>
+            </p-tabPanel>
+
+            <canvas baseChart
+                    [datasets]="chartData"
+                    [labels]="chartLabels"
+                    [options]="chartOptions"
+                    [legend]="true">
+            </canvas>
+        </p-tabView>
+    </div>
+</div>
+
+

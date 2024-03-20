@@ -1,0 +1,15 @@
+export const environment = {
+  production: true,
+  projectsURL: "https://projects.k8s.hemiron.com/api/",
+  s3URL: "https://s3.k8s.hemiron.com",
+  messagingURL: "https://messaging-service.svc.local/api/v1",
+  postgresURL: "https://postgres-service.k8s.hemiron.com",
+  vpsURL: "https://vps.k8s.hemiron.com",
+  serverlessURL: "https://serverless-service.k8s.hemiron.com",
+  billingURL: "https://billing.k8s.hemiron.com/v1/billing",
+  rabbitMQManagementURL: "http://37.97.158.248:15672/",
+  k8sURL: "https://managed-k8s.k8s.hemiron.com/",
+  keycloakURL: 'https://auth.hemiron.com',
+  keycloakRealm: 'hemiron',
+  keycloakClientId: 'hemiron-login',
+};

@@ -1,0 +1,15 @@
+<div class="relative z-[1]">
+  <button (click)="show()" class="relative flex items-center gap-3 border hover:bg-gray-50 font-medium rounded-lg py-2 px-3" type="button">
+    <span class="!text-lg material-symbols-rounded">person</span>
+    <span class="text-sm whitespace-nowrap pb-0.5 px-1">Projecten</span>
+    <span class="!text-lg material-symbols-rounded ml-2 transition-all" [class.-scale-y-100]="visible">keyboard_arrow_down</span>
+  </button>
+  <div [class.hidden]="!render" [class.opacity-100]="visible" [class.translate-y-0]="visible" class="absolute opacity-0 -translate-y-2 mt-3 border bg-white rounded-lg w-full transition-all">
+    <ul class="py-2 text-sm">
+      <li *ngFor="let item of getItemEntries()">
+        <button class="w-full text-left px-4 py-2 hover:bg-gray-100" (click)="select.emit(item[1])">{{item[0]}}</button>
+      </li>
+    </ul>
+  </div>
+</div>
+

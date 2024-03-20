@@ -1,0 +1,34 @@
+<div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class="row">
+    <div class="flex gap-2 text-gray-500 mb-4">
+      <span class="material-symbols-rounded">chevron_left</span>
+      <a class="font-semibold hover:underline" [routerLink]="['../']">Object Storage Dashboard</a>
+    </div>
+      <h1 class="text-3xl font-bold">Bucket aanmaken</h1>
+  </div>
+  <form [formGroup]="formGroup" (ngSubmit)="createBucket()">
+      <div class="row">
+        <label for="bucketName" class="block font-semibold mb-4">Bucket naam</label>
+        <div class="border bg-gray-100 rounded-lg py-2 px-3 focus-within:outline">
+          <input formControlName="bucketName" type="text" name="bucketName" id="bucketName" class="w-full text-sm bg-transparent focus:outline-none p-1" />
+        </div>
+      </div>
+      <div class="row">
+        <h2 class="font-semibold text-gray-500 mb-4">Bucket naamgeving regels</h2>
+        <ul class="grid gap-2 grid-cols-1 md:grid-cols-2">
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['minlength'] && !this.formGroup.get('bucketName')?.errors?.['maxlength']" title="Bucketnamen moeten tussen de 3 (min) en 63 (max) tekens lang zijn"></app-validation-indicator></li>
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['characters']" title="Bucketnamen mogen alleen bestaan uit kleine letters, cijfers, punten (.) en streepjes (-)"></app-validation-indicator></li>
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['pattern']" title="Bucketnamen mogen geen twee opeenvolgende punten bevatten of een punt naast een streepje"></app-validation-indicator></li>
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['begin-end']" title="Bucketnamen mogen niet beginnen of eindigen met een punt of streepje"></app-validation-indicator></li>
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['ip']" title="Bucketnamen mogen niet zijn opgemaakt als een IP-adres (bijvoorbeeld, 192.168.5.4)"></app-validation-indicator></li>
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['prefix']" title="Bucketnamen mogen niet beginnen met het voorvoegsel xn--"></app-validation-indicator></li>
+          <li><app-validation-indicator [disabled]="this.formGroup.get('bucketName')?.errors?.['required']" [valid]="!this.formGroup.get('bucketName')?.errors?.['suffix']" title="Bucketnamen mogen niet eindigen met de achtervoegsel -s3alias. Dit achtervoegsel is gereserveerd voor aliasnamen van toegangspunten"></app-validation-indicator></li>
+        </ul>
+      </div>
+      <div class="row flex justify-end items-center gap-4">
+        <p *ngIf="bucketAlreadyExistsError" class="text-red-700">Deze bucket naam bestaat al</p>
+        <p *ngIf="bucketUnexpectedError" class="text-red-700">Er is een onbekende fout opgetreden</p>
+        <app-button title="Maak bucket" type="submit" [disabled]="!this.formGroup.valid || bucketAlreadyExistsError"></app-button>
+      </div>
+  </form>
+</div>

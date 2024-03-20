@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+// We will slowly phase out the tailwind and material symbols code, until then this will remain.
+@import 'material-symbols';
+
+:root {
+    --max-content-width: 1600px;
+    --max-content-width-2: 1400px;
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    font-family: Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    background-color: var(--surface-ground);
+}
+
+// These classes are meant for content which should cover the whole leftover area, but not overflow
+.max-size-container {
+    display: flex;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.max-size-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+}

@@ -1,0 +1,97 @@
+<div class='mx-auto w-9 pt-4'>
+    <div>
+        <app-breadcrumbs></app-breadcrumbs>
+        <p class='pt-4 text-3xl font-semibold m-0'>App Toevoegen</p>
+        <div class="flex flex-row justify-content-between ">
+        <form class="mt-8" [formGroup]="addClusterForm">
+            <div class="mb-6"><p-dropdown formControlName="template" [options]="templateOptions" optionLabel="name" placeholder="Selecteer template (optioneel)" [showClear]="true" (onClear)="resetForm()" [style]="{'width': '13vw'}"></p-dropdown></div>
+
+            <div class="mb-6">
+                <app-input
+                    [placeholder]="'Naam van uw app'"
+                    [id]="'text'"
+                    [ngStyle]="{'width': '13vw'}"
+                    formControlName="appName"
+                    ngDefaultControl
+                    [required]="true"
+                    >
+                </app-input>
+            </div>
+            <div class="mb-6">
+                <app-input
+                    [placeholder]="'Beschrijving (optioneel)'"
+                    [id]="'text'"
+                    [ngStyle]="{'width': '13vw'}"
+                    formControlName="description"
+                    ngDefaultControl
+                    [required]="false"
+                    >
+                </app-input>
+            </div>
+            <div class="mb-6">
+                <app-input 
+                    [placeholder]="'Repository URL'"
+                    [id]="'text'"
+                    [ngStyle]="{'width': '13vw'}"
+                    formControlName="repositoryUrl"
+                    ngDefaultControl
+                    [required]="true"
+                    >
+                </app-input>
+            </div>
+            <div class="mb-6">
+                <app-input 
+                    [placeholder]="'Naam Helm Chart'"
+                    [id]="'text'"
+                    [ngStyle]="{'width': '13vw'}"
+                    formControlName="chartName"
+                    ngDefaultControl
+                    [required]="true"
+                    >
+                </app-input>
+            </div>
+            <div class="mb-4">
+                <app-input 
+                    [placeholder]="'Versie Helm Chart'"
+                    [id]="'text'"
+                    [ngStyle]="{'width': '13vw'}"
+                    formControlName="chartVersion"
+                    ngDefaultControl
+                    [required]="true"
+                    >
+                </app-input>
+            </div>
+            <div class="flex align-items-center mb-4 cursor-pointer" (click)="removeFormValues($event)" icon="fas fa-check" label="Confirm"><span class="fas fa-trash text-xl text-red-500 pr-2"></span><p class="font-medium text-sm text-red-500">Wis alle velden</p></div>
+            <p-confirmDialog key="removeFormValues" #cd>
+                <ng-template pTemplate="headless" let-message>
+                    <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+                        <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                            <i class="fas fa-question text-5xl"></i>
+                        </div>
+                        <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+                        <p class="mb-0">{{ message.message }}</p>
+                        <div class="flex justify-content-between mt-4">
+                            <button pButton label="Alles wissen" (click)="cd.accept()" class="w-8rem"></button>
+                            <button pButton label="Terug" (click)="cd.reject()" class="p-button-outlined w-8rem "></button>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-confirmDialog>
+            <div class="flex flex-column">
+                <p-toast position="bottom-center" key="verify"></p-toast>
+                <p-toast position="bottom-center" key="addHelmApp"></p-toast>
+                <p-button styleClass="verify-button" class="mb-6" label="Verify Chart" type="button" (click)="verifyChart()"></p-button>
+                <p-button styleClass="add-app-button" label="Toevoegen aan cluster" [disabled]="chartIsInvalid" type="submit" (click)="createHelmApp()"></p-button>
+            </div>
+        </form>
+        <div class="mt-8">
+            <app-code-editor
+                [code]="this.getHelmAppService().getYamlContent()"></app-code-editor>
+                <div class="pl-2 flex align-items-center">
+                    <span class="fas fa-circle-info pr-1"></span>
+                    <p class="font-medium text-sm text-bluegray-500">Geef uw gewenste variabelen mee in .yaml formaat (of laat het bestand leeg).</p>
+                    </div>
+                    
+            </div></div>
+    </div>
+</div>

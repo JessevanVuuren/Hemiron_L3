@@ -1,0 +1,16 @@
+::ng-deep{ 
+    nav.p-breadcrumb.p-component{
+        width: fit-content;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    nav.p-breadcrumb.p-component *{
+        font-size: small;
+        color: rgb(99, 99, 99);
+        padding: 0;
+        padding-top: .4rem;
+    }
+    
+}

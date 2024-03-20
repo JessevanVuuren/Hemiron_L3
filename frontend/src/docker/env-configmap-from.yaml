@@ -1,0 +1,10 @@
+... containers:
+      - name: test-container
+        image: k8s.gcr.io/busybox
+        command: [ "/bin/sh", "-c", "env" ]
+        env:
+          - name: ENV_API_BACKEND_URL
+            valueFrom:
+              configMapKeyRef:
+                name: the_configmap_name_id
+                key: ENV_API_BACKEND_URL

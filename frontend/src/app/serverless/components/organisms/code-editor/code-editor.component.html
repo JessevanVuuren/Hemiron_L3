@@ -1,0 +1,7 @@
+<div>
+    <div id="editor" style="height: 500px; width: 100%;">{{ code }}</div>
+    <button class="p-2 rounded-md bg-color-form text-white"
+            type="submit"
+            (click)="onSubmit()"
+            [disabled]="!codeChanged">Upload</button>
+</div>

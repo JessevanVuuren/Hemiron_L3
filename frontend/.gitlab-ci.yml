@@ -1,0 +1,65 @@
+image: node:18
+
+include:
+  - template: Jobs/SAST.gitlab-ci.yml
+
+variables:
+  IMAGE: "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG-$CI_COMMIT_SHORT_SHA"
+
+stages:
+  - test
+  - update-version
+  - release
+  - deploy
+
+test:
+  stage: test
+  image: node:latest
+  before_script:
+#    install chrome
+    - apt-get update && apt-get install -y wget gnupg
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - apt-get update
+    - apt-get install -y google-chrome-stable
+  script:
+    - npm install
+    - npm run test
+
+publish image:
+  stage: release
+  only:
+    - main
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [ '' ]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination $IMAGE
+
+update apps repo:
+  stage: deploy
+  image: alpine:3.18.5
+  only:
+    - main
+  variables:
+    PROJECT_FILE: services/frontend/values.yaml
+  before_script:
+    - apk add yq openssh git
+    - eval `ssh-agent -s`
+    - echo "${APPS_REPO_PRIVATE_KEY}" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global pull.rebase false
+    - git clone ${APPS_REPO_GIT}
+  script:
+    - cd apps
+    - DOCKER_IMAGE=${IMAGE} yq -i '.frontend.image = strenv(DOCKER_IMAGE)' ${PROJECT_FILE}
+    - 'git add . && git commit -m "chore(frontend): update image in ${PROJECT_FILE}" && git push'

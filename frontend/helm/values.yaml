@@ -1,0 +1,31 @@
+image: registry.inf-hsleiden.nl/2223.ipsenh-p3/frontend
+imageTag: 0.0.9
+imagePullPolicy: "IfNotPresent"
+name: hemiron-frontend
+
+service:
+  enabled: true
+  servicePort: 80
+  type: ClusterIP
+port: 80
+
+labels:
+  app: hemiron-frontend
+  chart: frontend
+  release: latest
+
+ingress:
+  enabled: true
+  hosts:
+    - hemiron.com
+  path: /
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+  tls:
+    - secretName: hemiron-com-tls
+      hosts:
+        - hemiron.com

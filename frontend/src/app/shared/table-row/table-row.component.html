@@ -1,0 +1,15 @@
+<td class="p-4 w-4 " *ngIf="checkboxes">
+    <div class="flex items-center">
+        <input id="checkbox-table-1" type="checkbox" (click)="emitCheckedRow($event)"
+            class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+    </div>
+</td>
+<td class="py-4 px-6 text-sm font-medium dark:text-black text-left " *ngFor="let value of values; let i = index">
+    <p class="w-fit m-auto" (click)="emitTableCell($event, value, variableNames[i])">
+        {{value}}
+    </p>
+</td>
+<td *ngIf="actions" class="flex py-4 px-6 text-sm font-medium justify-end gap-10">
+    <a *ngFor="let action of actions" class="text-blue-600 dark:text-blue-500 hover:underline hover:cursor-pointer"
+        (click)="emitAction($event, action)">{{action}}</a>
+</td>

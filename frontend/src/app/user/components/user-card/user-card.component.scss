@@ -1,0 +1,27 @@
+:host {
+    display: contents;
+}
+
+.user-card {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 5px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    p {
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .name {
+        font-size: 16px;
+        font-weight: 700;
+    }
+}

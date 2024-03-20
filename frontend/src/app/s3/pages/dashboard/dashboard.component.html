@@ -1,0 +1,55 @@
+<div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <div class="row flex flex-wrap gap-8 items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold">Object Storage Dashboard</h1>
+    </div>
+    <div class="flex flex-wrap gap-4">
+      <app-button title="Herlaad lijst" symbol="refresh" (btnClick)="refreshBuckets()"></app-button>
+    </div>
+  </div>
+  <div class="row flex flex-wrap gap-4">
+    <app-dashboard-tile class="flex-1" symbol="cleaning_bucket" title="Aantal buckets" [value]="getTotalBuckets()"></app-dashboard-tile>
+    <app-dashboard-tile class="flex-1" symbol="layers" title="Aantal objecten" [value]="getTotalObjects()"></app-dashboard-tile>
+    <app-dashboard-tile class="flex-1" symbol="hard_drive" title="Totale opslag" [value]="unitService.convertBytesToUnits(getTotalSize())"></app-dashboard-tile>
+    <app-dashboard-tile class="flex-1" symbol="globe_asia" title="Totale requests" value="-"></app-dashboard-tile>
+  </div>
+  <div class="row">
+    <h2 class="text-xl font-semibold mb-1">Buckets</h2>
+    <p class="text-sm text-gray-500">Hier bevinden alle buckets waar u toegang op heeft</p>
+    <div class="flex flex-wrap gap-4 justify-between items-center my-4">
+      <app-button title="Bucket aanmaken" symbol="add" (btnClick)="addBucket()"></app-button>
+    </div>
+    <div class="border rounded-lg overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-700 light:text-gray-400">
+        <thead class="block border-b w-full text-xs uppercase bg-gray-100 light:bg-gray-700 light:text-gray-400 pr-4">
+        <tr class="flex">
+          <th class="flex-[3] px-6 py-3 whitespace-nowrap overflow-hidden text-ellipsis" scope="col">
+            Naam
+          </th>
+          <th class="flex-[1] px-6 py-3 whitespace-nowrap overflow-hidden text-ellipsis" scope="col">
+            Objects
+          </th>
+          <th class="flex-[1] px-6 py-3 whitespace-nowrap overflow-hidden text-ellipsis" scope="col">
+            Grootte
+          </th>
+        </tr>
+        </thead>
+        <tbody class="block w-full h-96 overflow-y-scroll">
+        <tr (click)="navigateBucketPage(bucket)" class="flex items-center border-b font-semibold even:bg-gray-50 -outline-offset-2 hover:bg-gray-100 hover:cursor-pointer" *ngFor="let bucket of filteredBuckets">
+          <td class="flex-[3] px-6 py-3 whitespace-nowrap overflow-hidden text-ellipsis">
+            <div class="flex items-center gap-3">
+              <span class="text-sm px-1 py-1 whitespace-nowrap overflow-hidden text-ellipsis">{{bucket.name}}</span>
+            </div>
+          </td>
+          <td class="flex-[1] px-6 py-3 whitespace-nowrap overflow-hidden text-ellipsis">
+            {{bucket.amountOfObjects}}
+          </td>
+          <td class="flex-[1] px-6 py-3 whitespace-nowrap overflow-hidden text-ellipsis" scope="col">
+            {{unitService.convertBytesToUnits(bucket.size)}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

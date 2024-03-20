@@ -1,0 +1,11 @@
+<section class="project-layout-container">
+    <app-project-header [(expandedSideBar)]="expandedSideBar"></app-project-header>
+    <section class="project-layout-content max-size-container">
+        <app-project-side-menu [(expanded)]="expandedSideBar"></app-project-side-menu>
+        <main>
+            <section class="max-size-content">
+                <router-outlet></router-outlet>
+            </section>
+        </main>
+    </section>
+</section>

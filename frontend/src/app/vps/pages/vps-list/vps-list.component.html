@@ -1,0 +1,28 @@
+<section class="container  relative mx-auto">
+    <button [routerLink]="['/project',getProjectPath(),'vps-request']" class="absolute top-1 right-0 flex items-center gap-2 text-white bg-indigo-600 hover:bg-indigo-700 font-medium rounded-lg py-2 px-4 disabled:bg-gray-500 transition-all">
+        <h3 class=" whitespace-nowrap overflow-hidden text-ellipsis">Aanvragen van VPS</h3>
+    </button>
+    <h1 class="text-2xl font-bold mb-2">{{ getUserFirstName() }} - VPS list</h1>
+    <p class="text-gray-500 mb-4 font-bold">{{getProjectName()}}</p>
+    <h2 class="text-lg font-bold mb-2">Vps</h2>
+    <app-toast  *ngIf="showToast" [message]="toastMessage" [show]="showToast"></app-toast>
+    <ul>
+        <li *ngFor="let vps of getVpss()" [class.active]="vps.isActive"
+            class="m-10 mb-4 flex justify-between border p rounded-lg p-4 whitespace-nowrap hover:bg-indigo-700 hover:scale-105 hover:text-white transition-all">
+            <div class="flex items-center">
+                <div class="vps-details">
+                    <div>
+                        <p class="font-bold text-lg">{{ vps.name }}</p>
+                        <p class="">Project: {{ vps.project }}</p>
+                        <p class="">Ip: {{ vps.ip }}</p>
+                        <p class="">VPS user: {{vps.userName}}</p>
+                    </div>
+                    <p *ngIf="vps.isActive" class="text-green-400 ml-auto">Vps is actief &#x2714;</p>
+                </div>
+            </div>
+            <div class="vps-actions" *ngIf="userIsProjectOwner(vps)">
+                <button (click)="deleteVPS(vps)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">remove</button>
+            </div>
+        </li>
+    </ul>
+</section>

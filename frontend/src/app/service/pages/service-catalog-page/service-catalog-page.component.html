@@ -1,0 +1,56 @@
+<section class="service-catalog-page">
+  <h2>Service catalogus</h2>
+
+  <p-accordion [multiple]="true">
+    <p-accordionTab
+      *ngFor="let category of serviceCatalog"
+      [selected]="true"
+      class="accordion tab"
+    >
+      <ng-template pTemplate="header">
+        <div style="display: flex; align-items: center; gap: 15px">
+          <i [class]="category.iconClass"></i>
+          <span style="font-weight: bold">{{ category.name }}</span>
+          <span style="opacity: 0.8">{{ category.description }}</span>
+        </div>
+      </ng-template>
+
+      <section class="services-grid">
+        <a
+          [routerLink]="['/project', projectPath, service.url]"
+          *ngFor="let service of category.services"
+          (mouseenter)="enterService($event, serviceDetailOverlay)"
+          (mouseleave)="leaveService(serviceDetailOverlay)"
+        >
+          <p-button
+            [text]="true"
+            styleClass="service-button"
+            [style]="{ width: '100%' }"
+          >
+            <i [class]="service.iconClass"></i>
+            {{ service.name }}
+          </p-button>
+
+          <p-overlayPanel #serviceDetailOverlay>
+            <section class="service-detail-overlay" 
+                (mouseenter)="cancelHide(serviceDetailOverlay)"
+                (mouseleave)="leaveService(serviceDetailOverlay)"
+            >
+                <section class="detail-header">
+                <i [class]="service.iconClass" class="icon"></i>
+                <h3>{{service.name}}</h3>  
+                </section>
+                <ng-container *ngIf="service.description">
+                    <b>Beschrijving</b>
+                    <p>{{service.description}}</p>
+                </ng-container>
+                <section class="actions">
+                    <p-button [routerLink]="['/project', projectPath, service.url]" label="Openen"/>
+                </section>
+            </section>
+          </p-overlayPanel>
+        </a>
+      </section>
+    </p-accordionTab>
+  </p-accordion>
+</section>

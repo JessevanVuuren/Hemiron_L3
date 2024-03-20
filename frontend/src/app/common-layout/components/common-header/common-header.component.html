@@ -1,0 +1,49 @@
+<header>
+    <section class="common-header-content">
+        <section class="start">
+            <ng-content select="[start]"></ng-content>
+            <a [routerLink]="homeUrl" class="logo">Hemiron</a>
+            <ng-content select="[afterLogo]"></ng-content>
+        </section>
+        
+        <section class="center">
+            <ng-content select="[center]"></ng-content>
+        </section>
+        
+        <section class="end">
+            <ng-content select="[end]"></ng-content>
+            
+            <a href="https://docs.k8s.hemiron.com" target="_blank" style="color: var(--surface-text);">
+                <p-button [text]="true" icon="circle-question" pTooltip="Help">
+                    <fa-icon [icon]="['fas', 'circle-question']" />
+                </p-button>
+            </a>
+
+            <app-dark-mode-toggle-button />
+
+            <p-button [text]="true" class="user" (click)="userMenu.toggle($event)" *ngIf="userProfile">
+                {{ userProfile.lastName }}, {{userProfile.firstName }}                    
+                <section class="profile-image">
+                    <p-avatar [label]="userProfile.firstName!.substr(0, 1) + userProfile.lastName!.substr(0, 1)" styleClass="mr-2" shape="circle" class="user-image"></p-avatar>
+                </section>
+            </p-button>
+            <p-overlayPanel styleClass="user-menu-popover" #userMenu>
+                <section class="user-menu">
+                    <app-user-card *ngIf="userProfile"
+                        [firstName]="userProfile.firstName"
+                        [lastName]="userProfile.lastName"
+                        [email]="userProfile.email"
+                    />
+
+                    <a [href]="getAccountManagementUrl()">
+                        <p-button [text]="true" label="Mijn account" icon="fas fa-solid fa-user" [style]="{'width': '100%'}" size="small"/>
+                    </a>
+                    <ng-content select="[user-menu]"></ng-content>
+
+                    <p-button [text]="true" label="Uitloggen" icon="fas fa-sign-out" [style]="{'width': '100%'}" size="small" (click)="logout()"/>
+                </section>
+            </p-overlayPanel>
+
+        </section>
+    </section>
+</header>

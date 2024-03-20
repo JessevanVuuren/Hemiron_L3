@@ -1,0 +1,13 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:host {
+  display: table-row;
+}
+
+:host:hover {
+  background-color: rgb(243 244 246);
+  cursor: pointer;
+}

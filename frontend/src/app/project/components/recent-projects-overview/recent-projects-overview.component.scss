@@ -1,0 +1,44 @@
+.project-table {
+    margin-top: 25px;
+    border-radius: 5px;
+}
+
+.project-table-row {
+    transition: background-color 0.3s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--surface-100);
+    }
+    
+    &:active, &.selected-project {
+        background-color: var(--highlight-bg);
+        color: var(--highlight-text-color);
+    }
+}
+
+.project-table-cell {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.center-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 50vh;
+    width: 100%;
+    text-align: center;
+    gap: 15px;
+
+    h3, h2, p {
+        margin: 0;
+    }
+
+    img {
+        max-width: 175px;
+    }
+}

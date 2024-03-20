@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  billingURL: "http://localhost:8080/v1/billing"
+  postgresURL: "http://localhost:8080/v1/database"
+kind: ConfigMap
+metadata:
+  name: the_configmap_name_id

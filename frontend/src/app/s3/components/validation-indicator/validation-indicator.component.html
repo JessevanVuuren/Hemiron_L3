@@ -1,0 +1,4 @@
+<div class="flex gap-3 text-red-700" [ngClass]="{ 'text-red-700': !valid && !disabled, 'text-green-700': valid && !disabled, 'text-gray-500': disabled }">
+  <span class="material-symbols-rounded">{{disabled ? "block" : valid ? "check" : "close"}}</span>
+  <span>{{title}}</span>
+</div>

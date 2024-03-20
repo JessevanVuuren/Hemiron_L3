@@ -1,0 +1,45 @@
+<button [routerLink]="['/project',getProjectPath(),'vps-request']"
+        class="m-2 justify-end flex items-center bg-indigo-600 hover:bg-indigo-700 font-medium rounded-lg py-2 px-4 disabled:bg-gray-500 transition-all">
+    <h3 class=" whitespace-nowrap overflow-hidden text-ellipsis text-white">Terug</h3>
+</button>
+<div class="mb-10 container">
+    <div class="row justify-content-between rounded-lg p-4">
+        <div class="container">
+            <div class="mb-8">
+                <h1 class="text-2xl font-bold mb-2">Maak een VPS aan voor "{{getProjectName()}}" in de database</h1>
+                <h2 class="text-l font-bold mb-2">Na een aanvraag binnen te krijgen op de mail kan via dit scherm een
+                    VPS IP worden toegevoegd bij een van de gewilde projecten.</h2>
+            </div>
+            <form [formGroup]="vpsForm" (ngSubmit)="onSubmit($event)" class="max-w-md mx-auto mt-8  p-4 rounded-lg">
+                <p-message  class=" justify-center" severity="error" text="Ip format is niet correct" *ngIf="!vpsForm.get('vpsIp')?.valid && vpsForm.get('vpsIP')?.touched"></p-message>
+                <div class="mb-4">
+                    <label for="ipAddress" class="block font-bold mb-2">IP address</label>
+                    <input required type="text" id="ipAddress" formControlName="vpsIp"
+                           class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700">
+                </div>
+                <div class="mb-4">
+                    <p-message class=" justify-center" severity="error" text="Een VPS user is benodigt" *ngIf="!vpsForm.get('vpsUserName')?.valid && vpsForm.get('vpsUserName')?.touched"></p-message>
+                    <label for="username" class="block font-bold mb-2">VPS username</label>
+                    <input required type="text" id="username" formControlName="vpsUserName"
+                           class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700">
+                </div>
+                <div class="mb-4">
+                    <p-message  class=" justify-center"severity="error" text="Email is benodigt" *ngIf="!vpsForm.get('vpsEmail')?.valid && vpsForm.get('vpsEmail')?.touched"></p-message>
+                    <label for="email" class="block font-bold mb-2">Email eigenaar VPS</label>
+                    <input required type="email" id="email" formControlName="vpsEmail"
+                           class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500 bg-gray-700">
+                </div>
+                <app-toast *ngIf="showToast" [message]="toastMessage" [show]="showToast"></app-toast>
+
+                <div class="text-center">
+                    <p-button [disabled]="!vpsForm.valid" type="submit">
+                        Aanmaken
+                    </p-button>
+                </div>
+            </form>
+            <p-overlayPanel #errorOverlay>
+                {{ERROR_TEXT}}
+            </p-overlayPanel>
+        </div>
+    </div>
+</div>
