@@ -11,5 +11,9 @@ FROM nginx:1.23.4-alpine
 COPY --from=build-stage /hemiron-frontend/dist/ipsenh-frontend/ /usr/share/nginx/html
 
 COPY --from=build-stage /hemiron-frontend/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build-stage /hemiron-frontend/nginx/n.conf /etc/nginx/nginx.conf
+
+RUN apk add wrk
+RUN apk add apache2-utils
 
 CMD ["nginx", "-g", "daemon off;"]
