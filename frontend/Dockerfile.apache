@@ -1,0 +1,16 @@
+FROM node:20-alpine3.16 as build-stage
+
+COPY . /hemiron-frontend
+WORKDIR /hemiron-frontend
+
+RUN npm i
+RUN npm run build --prod
+
+FROM httpd:2.4-alpine
+
+COPY --from=build-stage /hemiron-frontend/apache/httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY --from=build-stage /hemiron-frontend/dist/ipsenh-frontend/ /usr/local/apache2/htdocs/
+
+RUN apk add sysstat
+
+CMD ["httpd-foreground"]

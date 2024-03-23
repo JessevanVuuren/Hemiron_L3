@@ -1,0 +1,19 @@
+FROM node:20-alpine3.16 as build-stage
+
+COPY . ./hemiron-frontend
+WORKDIR /hemiron-frontend
+
+RUN npm i -g http-server
+
+RUN npm i
+RUN npm run build --prod
+
+FROM node:20-alpine3.16 as final
+
+COPY --from=build-stage /hemiron-frontend/dist/ipsenh-frontend/ /server
+
+WORKDIR /server
+
+RUN apk add sysstat
+
+CMD ["npx", "http-server", "-c-1", "-p", "3001", "."]
