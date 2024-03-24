@@ -16,4 +16,4 @@ WORKDIR /server
 
 RUN apk add sysstat
 
-CMD ["npx", "http-server", "-c-1", "-p", "3001", "."]
+CMD ["npx", "http-server", "-c-1", "-p", "80", "."]

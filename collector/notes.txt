@@ -3,7 +3,7 @@ ab -n 10000 -c 1000 http://localhost:3001/
 
 pidstat
 
-docker run -p 3001:80 --cpus=1 --memory=512m hemiron-x
+docker run --rm -p 3001:80 --cpus=1 --memory=512m hemiron-x
 
 # docker http-server
 docker build -t hemiron-http --file .\Dockerfile.httpserver .
