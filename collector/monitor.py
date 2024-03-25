@@ -7,11 +7,11 @@ import csv
 # DOCKER_NAME = "hemiron-http"
 # PROCESS_NAME = "http-server"
 
-DOCKER_NAME = "hemiron-apache"
-PROCESS_NAME = "httpd"
+# DOCKER_NAME = "hemiron-apache"
+# PROCESS_NAME = "httpd"
 
-# DOCKER_NAME = "hemiron-nginx"
-# PROCESS_NAME = "nginx"
+DOCKER_NAME = "hemiron-nginx"
+PROCESS_NAME = "nginx"
 
 
 with open(DOCKER_NAME + '_data.csv', "w+", newline='') as csv_file:
