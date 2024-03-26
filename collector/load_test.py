@@ -47,21 +47,24 @@ def start_collecting(docker_id, process_id, config):
             cpu = "" 
             ram = ""
             for stdout in process.stdout:
-                stdout = stdout.strip().split()
-                if (config["process_name"] in stdout and "Average:" not in stdout):
-                    if (len(stdout) == 10): cpu = stdout[7]
-                    if (len(stdout) == 9): ram = stdout[7]
+                print(stdout)
+                # stdout = stdout.strip().split()
+                # if (config["process_name"] in stdout and "Average:" not in stdout):
+                #     if (len(stdout) == 10): cpu = stdout[7]
+                #     if (len(stdout) == 9): ram = stdout[7]
 
-                    if (cpu and ram): 
-                        time = stdout[0]
-                        write_usage_to_csv(time, cpu, ram, config)
-                        cpu = ""
-                        ram = ""
+                #     if (cpu and ram): 
+                #         time = stdout[0]
+                #         print(time)
+                #         write_usage_to_csv(time, cpu, ram, config)
+                #         cpu = ""
+                #         ram = ""
 
 
 def send_requests(amount, config):
     while 1:
-        subprocess.run("ab -n " + str(amount) + " " + config["link"], shell=True, stdout=subprocess.DEVNULL)
+        time.sleep(1)
+        # subprocess.run("ab -n " + str(amount) + " " + config["link"], shell=True, stdout=subprocess.DEVNULL)
 
 
 def main(config):
@@ -72,7 +75,8 @@ def main(config):
     time.sleep(10)
 
     test_duration_hour = 1;
-    test_duration_seconds = test_duration_hour * 3600
+    # test_duration_seconds = test_duration_hour * 3600
+    test_duration_seconds = test_duration_hour * 60
 
     test_end_time = datetime.now() + timedelta(seconds=test_duration_seconds)
 
@@ -81,21 +85,31 @@ def main(config):
     while datetime.now() < test_end_time:
         threading.Thread(target=send_requests, args=[concurrent_requests, config], daemon=True).start()
         threading.Thread(target=send_requests, args=[concurrent_requests, config], daemon=True).start()
-        concurrent_requests += 2
+        concurrent_requests += 1
         
         stress_test_info["connections"] = len(threading.enumerate()) - 2
         stress_test_info["requests"] = concurrent_requests
         
-        time.sleep(30)
+        time.sleep(1)
 
 
 if __name__ == "__main__":
-    assert len(sys.argv) == 4
+    # assert len(sys.argv) == 4
 
+    # config = {
+    #     "docker_name": sys.argv[1],
+    #     "process_name": sys.argv[2],
+    #     "link": sys.argv[3]
+    # }
+    # config = {
+    #     "docker_name": "hemiron-http",
+    #     "process_name": "http-server",
+    #     "link": "http://localhost:3001/"
+    # }
     config = {
-        "docker_name": sys.argv[1],
-        "process_name": sys.argv[2],
-        "link": sys.argv[3]
+        "docker_name": "hemiron-nginx",
+        "process_name": "nginx",
+        "link": "http://localhost:3001/"
     }
         
     print("Testing: {}, with process: {}, With link: {}".format(config["docker_name"], config["process_name"], config["link"]))
