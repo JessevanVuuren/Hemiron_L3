@@ -22,7 +22,7 @@ def get_container_id(config):
 
 
 def get_PID_of_process(docker_id, config):
-    command = 'docker exec -it {} sh -c "pidof {}"'.format(docker_id, config["process_name"])
+    command = 'docker exec -it {} sh -c "pidof \'{}\'"'.format(docker_id, config["process_command"])
     return exec(command)
 
 
@@ -47,18 +47,17 @@ def start_collecting(docker_id, process_id, config):
             cpu = "" 
             ram = ""
             for stdout in process.stdout:
-                print(stdout)
-                # stdout = stdout.strip().split()
-                # if (config["process_name"] in stdout and "Average:" not in stdout):
-                #     if (len(stdout) == 10): cpu = stdout[7]
-                #     if (len(stdout) == 9): ram = stdout[7]
+                stdout = stdout.strip().split()
+                if (config["process_name"] in stdout):
+                    if (len(stdout) == 10): cpu = stdout[7]
+                    if (len(stdout) == 9): ram = stdout[7]
 
-                #     if (cpu and ram): 
-                #         time = stdout[0]
-                #         print(time)
-                #         write_usage_to_csv(time, cpu, ram, config)
-                #         cpu = ""
-                #         ram = ""
+                    if (cpu and ram): 
+                        time = stdout[0]
+                        print(cpu)
+                        write_usage_to_csv(time, cpu, ram, config)
+                        cpu = ""
+                        ram = ""
 
 
 def send_requests(amount, config):
@@ -98,21 +97,23 @@ if __name__ == "__main__":
 
     # config = {
     #     "docker_name": sys.argv[1],
-    #     "process_name": sys.argv[2],
+    #     "process_command": sys.argv[2],
     #     "link": sys.argv[3]
     # }
-    # config = {
-    #     "docker_name": "hemiron-http",
-    #     "process_name": "http-server",
-    #     "link": "http://localhost:3001/"
-    # }
     config = {
-        "docker_name": "hemiron-nginx",
-        "process_name": "nginx",
+        "docker_name": "hemiron-http",
+        "process_command": "http-server",
+        "process_name": "http-server",
         "link": "http://localhost:3001/"
     }
+    # config = {
+    #     "docker_name": "hemiron-nginx",
+    #     "process_command": "nginx: worker process",
+    #     "process_name": "nginx",
+    #     "link": "http://localhost:3001/"
+    # }
         
-    print("Testing: {}, with process: {}, With link: {}".format(config["docker_name"], config["process_name"], config["link"]))
+    print("Testing: {}, with process: {}, With link: {}".format(config["docker_name"], config["process_command"], config["link"]))
 
     create_csv_file(config)
     main(config)
