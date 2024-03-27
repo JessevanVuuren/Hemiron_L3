@@ -54,16 +54,14 @@ def start_collecting(docker_id, process_id, config):
 
                     if (cpu and ram): 
                         time = stdout[0]
-                        print(cpu)
                         write_usage_to_csv(time, cpu, ram, config)
                         cpu = ""
                         ram = ""
 
 
 def send_requests(amount, config):
-    while 1:
-        time.sleep(1)
-        # subprocess.run("ab -n " + str(amount) + " " + config["link"], shell=True, stdout=subprocess.DEVNULL)
+    while 1:        
+        subprocess.run("ab -n " + str(amount) + " " + config["link"], shell=True, stdout=subprocess.DEVNULL)
 
 
 def main(config):
@@ -73,14 +71,11 @@ def main(config):
     threading.Thread(target=start_collecting, args=[docker_id, process_id, config], daemon=True).start();
     time.sleep(10)
 
-    test_duration_hour = 1;
-    # test_duration_seconds = test_duration_hour * 3600
-    test_duration_seconds = test_duration_hour * 60
-
+    test_duration_seconds = 3600
     test_end_time = datetime.now() + timedelta(seconds=test_duration_seconds)
 
-    concurrent_requests = 1
 
+    concurrent_requests = 1
     while datetime.now() < test_end_time:
         threading.Thread(target=send_requests, args=[concurrent_requests, config], daemon=True).start()
         threading.Thread(target=send_requests, args=[concurrent_requests, config], daemon=True).start()
@@ -89,23 +84,19 @@ def main(config):
         stress_test_info["connections"] = len(threading.enumerate()) - 2
         stress_test_info["requests"] = concurrent_requests
         
-        time.sleep(1)
+        time.sleep(30)
 
 
 if __name__ == "__main__":
-    # assert len(sys.argv) == 4
+    assert len(sys.argv) == 5
 
-    # config = {
-    #     "docker_name": sys.argv[1],
-    #     "process_command": sys.argv[2],
-    #     "link": sys.argv[3]
-    # }
     config = {
-        "docker_name": "hemiron-http",
-        "process_command": "http-server",
-        "process_name": "http-server",
-        "link": "http://localhost:3001/"
+        "docker_name": sys.argv[1],
+        "process_command": sys.argv[2],
+        "process_name": sys.argv[3],
+        "link": sys.argv[4]
     }
+    
     # config = {
     #     "docker_name": "hemiron-nginx",
     #     "process_command": "nginx: worker process",
