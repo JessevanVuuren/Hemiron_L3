@@ -96,13 +96,6 @@ if __name__ == "__main__":
         "process_name": sys.argv[3],
         "link": sys.argv[4]
     }
-    
-    # config = {
-    #     "docker_name": "hemiron-nginx",
-    #     "process_command": "nginx: worker process",
-    #     "process_name": "nginx",
-    #     "link": "http://localhost:3001/"
-    # }
         
     print("Testing: {}, with process: {}, With link: {}".format(config["docker_name"], config["process_command"], config["link"]))
 
