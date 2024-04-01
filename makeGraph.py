@@ -12,9 +12,9 @@ cpu = pd.concat([cpu, hemiron_nginx["cpu"].rename("nginx_cpu")], axis=1)
 cpu = pd.concat([cpu, hemiron_apache["cpu"].rename("apache_cpu")], axis=1)
 
 ram = pd.DataFrame()
-ram = pd.concat([ram, hemiron_http["ram"].rename("http-server_cpu")], axis=1)
-ram = pd.concat([ram, hemiron_nginx["ram"].rename("nginx_cpu")], axis=1)
-ram = pd.concat([ram, hemiron_apache["ram"].rename("apache_cpu")], axis=1)
+ram = pd.concat([ram, hemiron_http["ram"].rename("http-server_ram")], axis=1)
+ram = pd.concat([ram, hemiron_nginx["ram"].rename("nginx_ram")], axis=1)
+ram = pd.concat([ram, hemiron_apache["ram"].rename("apache_ram")], axis=1)
 
 cpu.plot()
 ram.plot()
